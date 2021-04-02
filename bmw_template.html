@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+        <title>BMW Price Prediction</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin:0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .text-primary {
+            color: #3c81af;
+        }
+        
+        /* Intro */
+        #intro {
+            padding:1rem;
+            width: 60%;
+            margin: auto;
+        }
+
+        #intro p {
+            padding: 0.8rem;   
+        }
+
+        /* Navbar */
+        #navbar {
+            display: flex;
+            position: sticky;
+            text-align: center;
+            top:0;
+            background: #333;
+            color: #fff;
+            justify-content: space-between;
+            z-index: 1;
+            padding: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            bottom:0;
+            color: #fff;
+            justify-content: space-between;
+        }
+
+    </style>
+    </head>
+
+    <body id="home">
+        <!-- Navbar -->
+        <nav id="navbar">
+            <h1 class="logo" style="margin: auto">
+                <span class="text-primary"> BMW </span> Pricing Prediction
+            </h1>
+            
+        </nav>
+        
+        <div id="intro">
+            <p> This website predicts the price of a second hand BMW given features 
+                like the model, power, mileage, colour, type of car, type of fuel or even if 
+                it has extras (gps, blueetooth, rear camera...) </p>
+            <p> The model implemented is a Random Forest Regressor with: n_estimators: 120, max_depth: 50 and min_samples_leaf: 5.</p>
+
+            <p> You can see the model selection in a notebook in GitHub: <a href="https://github.com/carlosperez1997/bmw_price_prediction/blob/main/price_prediction.ipynb" target="_blank"> Building the Model</a>  </p>
+            <p> Whereas the code of this dashboard is in: <a href="https://github.com/carlosperez1997/bmw_price_prediction/blob/main/bmw_dashboard.py" target="_blank"> Building the Dashboard </a>  </p>
+        
+            <p> Select the car and features and click 'Estimate price': </p>
+        </div>
+
+        {%app_entry%}
+
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        
+            <h1 class="logo" style="margin: auto">
+                <span class="text-primary"> BMW </span> Pricing Prediction
+            </h1>
+            <p> Carlos Pérez Ricardo <a href="https://github.com/carlosperez1997" target="_blank" style="color:white"> GitHub </a></p>
+
+        </footer>
+    </body>
+</html>
