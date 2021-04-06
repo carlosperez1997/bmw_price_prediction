@@ -38,19 +38,33 @@ html_string = '''
             text-align: center;
         }
 
+        #estimate_price {
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            font-size: 1.3rem
+        }
+
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.3;  
+            height: 100%;
+        }
+
         .text-primary {
             color: #3c81af;
         }
         
         /* Intro */
         #intro {
-            padding:1rem;
+            padding: 0.5rem 1rem;
             width: 70%;
             margin: auto;
         }
 
         #intro p {
-            padding: 0.8rem;   
+            padding: 0.7rem;   
         }
 
         /* Navbar */
@@ -70,6 +84,7 @@ html_string = '''
         footer {
             background: #333;
             bottom:0;
+            margin-top: 40px;
             color: #fff;
             justify-content: space-between;
         }
@@ -87,13 +102,12 @@ html_string = '''
         </nav>
         
         <div id="intro">
-            <p> This website predicts the price of a second hand BMW given features 
+            <p> This website predicts the selling price of a second hand BMW given features 
                 like the model, power, mileage, colour, type of car, type of fuel or even if 
-                it has extras (gps, blueetooth, rear camera...) </p>
-            <p> The model implemented is a Random Forest Regressor with: n_estimators: 120, max_depth: 50 and min_samples_leaf: 5.</p>
+                it has extras (gps, blueetooth, rear camera, air conditioning...) </p>
+            <p> The model implemented is a Random Forest Regressor with: n_estimators: 80, max_depth: 50 and min_samples_leaf: 5. You can see the model selection in a notebook in GitHub: <a href="https://github.com/carlosperez1997/bmw_price_prediction/blob/main/price_prediction.ipynb" target="_blank"> Building the Model</a></p>
 
-            <p> You can see the model selection in a notebook in GitHub: <a href="https://github.com/carlosperez1997/bmw_price_prediction/blob/main/price_prediction.ipynb" target="_blank"> Building the Model</a>  </p>
-            <p> Whereas the code of this dashboard is in: <a href="https://github.com/carlosperez1997/bmw_price_prediction/blob/main/bmw_dashboard.py" target="_blank"> Building the Dashboard </a>  </p>
+            <p> The code of this dashboard is in: <a href="https://github.com/carlosperez1997/bmw_price_prediction/blob/main/bmw_dashboard.py" target="_blank"> Building the Dashboard </a>  </p>
         
             <p> Select the car and features and click 'Estimate price': </p>
         </div>
@@ -115,82 +129,82 @@ html_string = '''
 </html>
 '''
 
-model_options = [{'label': 'i8', 'value': 'modelo_i8'},
- {'label': 'M4', 'value': 'modelo_M4'},
- {'label': 'X6 M', 'value': 'modelo_X6 M'},
- {'label': 'X5 M50', 'value': 'modelo_X5 M50'},
- {'label': 'M5', 'value': 'modelo_M5'},
- {'label': '640 Gran Coupé', 'value': 'modelo_640 Gran Coupé'},
- {'label': 'X5 M', 'value': 'modelo_X5 M'},
- {'label': '740', 'value': 'modelo_740'},
- {'label': '750', 'value': 'modelo_750'},
- {'label': 'M3', 'value': 'modelo_M3'},
- {'label': 'M550', 'value': 'modelo_M550'},
- {'label': 'X6', 'value': 'modelo_X6'},
- {'label': '640', 'value': 'modelo_640'},
- {'label': '435 Gran Coupé', 'value': 'modelo_435 Gran Coupé'},
- {'label': 'X4', 'value': 'modelo_X4'},
- {'label': '435', 'value': 'modelo_435'},
- {'label': '425', 'value': 'modelo_425'},
- {'label': 'X5', 'value': 'modelo_X5'},
- {'label': '430', 'value': 'modelo_430'},
- {'label': 'M235', 'value': 'modelo_M235'},
- {'label': '430 Gran Coupé', 'value': 'modelo_430 Gran Coupé'},
- {'label': 'M135', 'value': 'modelo_M135'},
- {'label': '330 Gran Turismo', 'value': 'modelo_330 Gran Turismo'},
- {'label': '535 Gran Turismo', 'value': 'modelo_535 Gran Turismo'},
- {'label': '335 Gran Turismo', 'value': 'modelo_335 Gran Turismo'},
- {'label': '420 Gran Coupé', 'value': 'modelo_420 Gran Coupé'},
- {'label': '420', 'value': 'modelo_420'},
- {'label': '220', 'value': 'modelo_220'},
- {'label': '730', 'value': 'modelo_730'},
- {'label': '535', 'value': 'modelo_535'},
- {'label': '135', 'value': 'modelo_135'},
- {'label': '335', 'value': 'modelo_335'},
- {'label': 'i3', 'value': 'modelo_i3'},
- {'label': 'ActiveHybrid 5', 'value': 'modelo_ActiveHybrid 5'},
- {'label': '530 Gran Turismo', 'value': 'modelo_530 Gran Turismo'},
- {'label': '418 Gran Coupé', 'value': 'modelo_418 Gran Coupé'},
- {'label': '325 Gran Turismo', 'value': 'modelo_325 Gran Turismo'},
- {'label': '528', 'value': 'modelo_528'},
- {'label': '520 Gran Turismo', 'value': 'modelo_520 Gran Turismo'},
- {'label': '530', 'value': 'modelo_530'},
- {'label': '635', 'value': 'modelo_635'},
- {'label': '225 Active Tourer', 'value': 'modelo_225 Active Tourer'},
- {'label': '218', 'value': 'modelo_218'},
- {'label': ' Active Tourer', 'value': 'modelo_ Active Tourer'},
- {'label': '225', 'value': 'modelo_225'},
- {'label': 'X3', 'value': 'modelo_X3'},
- {'label': '214 Gran Tourer', 'value': 'modelo_214 Gran Tourer'},
- {'label': '320 Gran Turismo', 'value': 'modelo_320 Gran Turismo'},
- {'label': '216 Gran Tourer', 'value': 'modelo_216 Gran Tourer'},
- {'label': '330', 'value': 'modelo_330'},
- {'label': '328', 'value': 'modelo_328'},
- {'label': '518', 'value': 'modelo_518'},
- {'label': '218 Gran Tourer', 'value': 'modelo_218 Gran Tourer'},
- {'label': '520', 'value': 'modelo_520'},
- {'label': '525', 'value': 'modelo_525'},
- {'label': '218 Active Tourer', 'value': 'modelo_218 Active Tourer'},
- {'label': '318 Gran Turismo', 'value': 'modelo_318 Gran Turismo'},
- {'label': '325', 'value': 'modelo_325'},
- {'label': '216 Active Tourer', 'value': 'modelo_216 Active Tourer'},
- {'label': 'X1', 'value': 'modelo_X1'},
- {'label': '125', 'value': 'modelo_125'},
- {'label': '120', 'value': 'modelo_120'},
- {'label': '320', 'value': 'modelo_320'},
- {'label': '220 Active Tourer', 'value': 'modelo_220 Active Tourer'},
- {'label': '114', 'value': 'modelo_114'},
- {'label': '318', 'value': 'modelo_318'},
- {'label': '630', 'value': 'modelo_630'},
- {'label': '316', 'value': 'modelo_316'},
- {'label': '116', 'value': 'modelo_116'},
- {'label': '118', 'value': 'modelo_118'},
- {'label': 'Z4', 'value': 'modelo_Z4'},
- {'label': '123', 'value': 'modelo_123'},
- {'label': '650', 'value': 'modelo_650'},
- {'label': '523', 'value': 'modelo_523'},
- {'label': '216', 'value': 'modelo_216'},
- {'label': '735', 'value': 'modelo_735'}]
+model_options = [{'label': 'i8', 'value': 8},
+ {'label': 'M4', 'value': 5},
+ {'label': 'X6 M', 'value': 6},
+ {'label': 'X5 M50', 'value': 5},
+ {'label': 'M5', 'value': 6},
+ {'label': '640 Gran Coupé', 'value': 6},
+ {'label': 'X5 M', 'value': 5},
+ {'label': '740', 'value': 7},
+ {'label': '750', 'value': 7},
+ {'label': 'M3', 'value': 4},
+ {'label': 'M550', 'value': 6},
+ {'label': 'X6', 'value': 6},
+ {'label': '640', 'value': 6},
+ {'label': '435 Gran Coupé', 'value': 4},
+ {'label': 'X4', 'value': 4},
+ {'label': '435', 'value': 4},
+ {'label': '425', 'value': 4},
+ {'label': 'X5', 'value': 5},
+ {'label': '430', 'value': 4},
+ {'label': 'M235', 'value': 3},
+ {'label': '430 Gran Coupé', 'value': 4},
+ {'label': 'M135', 'value': 2},
+ {'label': '330 Gran Turismo', 'value': 3},
+ {'label': '535 Gran Turismo', 'value': 5},
+ {'label': '335 Gran Turismo', 'value': 3},
+ {'label': '420 Gran Coupé', 'value': 4},
+ {'label': '420', 'value': 4},
+ {'label': '220', 'value': 2},
+ {'label': '730', 'value': 7},
+ {'label': '535', 'value': 5},
+ {'label': '135', 'value': 1},
+ {'label': '335', 'value': 3},
+ {'label': 'i3', 'value': 3},
+ {'label': 'ActiveHybrid 5', 'value': 5},
+ {'label': '530 Gran Turismo', 'value': 5},
+ {'label': '418 Gran Coupé', 'value': 4},
+ {'label': '325 Gran Turismo', 'value': 3},
+ {'label': '528', 'value': 5},
+ {'label': '520 Gran Turismo', 'value': 5},
+ {'label': '530', 'value': 5},
+ {'label': '635', 'value': 6},
+ {'label': '225 Active Tourer', 'value': 2},
+ {'label': '218', 'value': 2},
+ {'label': ' Active Tourer', 'value': 1},
+ {'label': '225', 'value': 2},
+ {'label': 'X3', 'value': 3},
+ {'label': '214 Gran Tourer', 'value': 2},
+ {'label': '320 Gran Turismo', 'value': 3},
+ {'label': '216 Gran Tourer', 'value': 2},
+ {'label': '330', 'value': 3},
+ {'label': '328', 'value': 3},
+ {'label': '518', 'value': 5},
+ {'label': '218 Gran Tourer', 'value': 2},
+ {'label': '520', 'value': 5},
+ {'label': '525', 'value': 5},
+ {'label': '218 Active Tourer', 'value': 2},
+ {'label': '318 Gran Turismo', 'value': 3},
+ {'label': '325', 'value': 3},
+ {'label': '216 Active Tourer', 'value': 2},
+ {'label': 'X1', 'value': 1},
+ {'label': '125', 'value': 1},
+ {'label': '120', 'value': 1},
+ {'label': '320', 'value': 3},
+ {'label': '220 Active Tourer', 'value': 2},
+ {'label': '114', 'value': 1},
+ {'label': '318', 'value': 3},
+ {'label': '630', 'value': 6},
+ {'label': '316', 'value': 3},
+ {'label': '116', 'value': 1},
+ {'label': '118', 'value': 1},
+ {'label': 'Z4', 'value': 4},
+ {'label': '123', 'value': 1},
+ {'label': '650', 'value': 6},
+ {'label': '523', 'value': 5},
+ {'label': '216', 'value': 2},
+ {'label': '735', 'value': 7}]
 
 fuel_options = [{'label': 'diesel', 'value': 'tipo_gasolina_diesel'},
  {'label': 'petrol', 'value': 'tipo_gasolina_petrol'},
@@ -227,128 +241,38 @@ extras_options = [{'label': 'volante_regulable', 'value': 'volante_regulable'},
  {'label': 'gps', 'value': 'gps'},
  {'label': 'alerta_lim_velocidad', 'value': 'alerta_lim_velocidad'}]
 
-model_features = ['modelo_520',
- 'color_black',
- 'modelo_635',
- 'tipo_coche_van',
- 'modelo_120',
- 'color_grey',
- 'modelo_i8',
- 'tipo_coche_sedan',
- 'modelo_118',
- 'gps',
- 'modelo_X3',
- 'modelo_123',
- 'modelo_328',
- 'color_orange',
- 'modelo_318 Gran Turismo',
- 'bluetooth',
- 'modelo_M4',
- 'modelo_318',
- 'modelo_X4',
- 'modelo_M3',
- 'modelo_520 Gran Turismo',
+model_features = ['tipo_coche_coupe',
+ 'modelo_M',
  'camara_trasera',
- 'modelo_425',
- 'modelo_216 Gran Tourer',
- 'asientos_traseros_plegables',
- 'modelo_316',
- 'color_silver',
- 'tipo_coche_convertible',
- 'alerta_lim_velocidad',
- 'modelo_X6',
- 'tipo_coche_hatchback',
- 'modelo_435',
- 'modelo_M550',
- 'modelo_435 Gran Coupé',
- 'modelo_640 Gran Coupé',
- 'modelo_523',
- 'modelo_650',
- 'modelo_135',
- 'modelo_325',
- 'modelo_640',
- 'tipo_gasolina_hybrid_petrol',
- 'modelo_M135',
- 'modelo_220 Active Tourer',
  'year',
- 'antiquity',
- 'modelo_ActiveHybrid 5',
- 'modelo_335 Gran Turismo',
- 'modelo_525',
- 'modelo_X5',
- 'modelo_430 Gran Coupé',
- 'volante_regulable',
- 'tipo_gasolina_diesel',
- 'modelo_320 Gran Turismo',
- 'modelo_430',
- 'modelo_730',
- 'modelo_535',
- 'modelo_225',
- 'modelo_530 Gran Turismo',
- 'tipo_coche_subcompact',
- 'tipo_coche_coupe',
- 'modelo_M5',
- 'modelo_216',
- 'modelo_M235',
- 'modelo_218',
- 'modelo_535 Gran Turismo',
- 'modelo_ Active Tourer',
- 'modelo_X6 M',
- 'modelo_325 Gran Turismo',
- 'color_white',
- 'tipo_gasolina_petrol',
- 'modelo_i3',
- 'modelo_Z4',
- 'modelo_220',
- 'modelo_X5 M',
- 'tipo_coche_estate',
- 'modelo_X5 M50',
- 'modelo_420 Gran Coupé',
+ 'gps',
+ 'tipo_coche_van',
  'aire_acondicionado',
- 'modelo_330 Gran Turismo',
- 'color_beige',
- 'tipo_coche_suv',
- 'modelo_418 Gran Coupé',
- 'modelo_330',
- 'modelo_530',
- 'elevalunas_electrico',
- 'modelo_114',
- 'modelo_218 Gran Tourer',
- 'modelo_528',
- 'modelo_740',
- 'tipo_gasolina_electro',
- 'modelo_X1',
- 'modelo_116',
- 'color_red',
- 'modelo_335',
- 'scaled_km',
- 'modelo_320',
- 'modelo_735',
- 'modelo_420',
- 'modelo_125',
- 'modelo_218 Active Tourer',
- 'color_blue',
- 'modelo_518',
- 'modelo_225 Active Tourer',
- 'color_green',
- 'modelo_214 Gran Tourer',
- 'modelo_750',
  'scaled_power',
- 'modelo_630',
- 'modelo_216 Active Tourer',
- 'color_brown']
-
+ 'tipo_coche_estate',
+ 'elevalunas_electrico',
+ 'tipo_coche_convertible',
+ 'asientos_traseros_plegables',
+ 'bluetooth',
+ 'tipo_coche_suv',
+ 'km',
+ 'modelo_ordinal',
+ 'alerta_lim_velocidad',
+ 'tipo_coche_sedan',
+ 'antiquity',
+ 'volante_regulable',
+ 'tipo_coche_subcompact',
+ 'tipo_coche_hatchback']
 
 app.index_string = html_string
 
 app.layout = html.Div([
     html.Button('Estimate Price', id='estimate_price', n_clicks=0),
     html.Div(
-        children = [
-            html.H2( 'The estimated price is: {} €'.format( 100.000 ))
-    ]),
+        id = 'solution'
+    ),
 
-    html.Div( id='dropdowns',
+    html.Div( id='dropdowns', style={'width': '100%','margin':'10px'},
         children = [
         html.Div(
             children = [
@@ -358,7 +282,7 @@ app.layout = html.Div([
                 options = model_options,
                 value = model_options[0]['value']
             )
-            ], style={'width': '25%', 'display': 'inline-block', 'padding':'10px'}
+            ], style={'width': '33%', 'display': 'inline-block', 'padding':'0px 100px'}
         ),
         html.Div(
             children = [
@@ -368,7 +292,7 @@ app.layout = html.Div([
                 options = fuel_options,
                 value = fuel_options[0]['value']
             )
-            ], style={'width': '25%', 'display': 'inline-block', 'padding':'10px'}
+            ], style={'width': '33%', 'display': 'inline-block', 'padding':'0px 100px'}
         ),
         html.Div(
             children = [
@@ -378,42 +302,64 @@ app.layout = html.Div([
                 options = tipo_coche_options,
                 value = tipo_coche_options[0]['value']
             )
-            ], style={'width': '25%', 'display': 'inline-block', 'padding':'10px'}
+            ], style={'width': '33%', 'display': 'inline-block', 'padding':'0px 100px'}
         ),
-        html.Div(
-            children = [
-            html.H3 (' Color: '),
-            dcc.Dropdown(
-                id='color_dropdown',
-                options = color_options,
-                value = color_options[0]['value']
-            )
-            ], style={'width': '25%', 'display': 'inline-block', 'padding':'10px'}
-        )
+        #html.Div(
+        #    children = [
+        #    html.H3 (' Color: '),
+        #    dcc.Dropdown(
+        #        id='color_dropdown',
+        #        options = color_options,
+        #        value = color_options[0]['value']
+        #    )
+        #    ], style={'width': '25%', 'display': 'inline-block', 'padding':'10px'}
+        #)
     ]),
 
-    html.Div( id='numeric',
+    html.Div( id='numeric', style={'width': '100%','margin-bottom':'30px'},
         children = [
-        html.Div(
-            children = [
+        html.Div( children = [
             html.H3 (' Mileage (km): '),
-            dcc.Input(id="input_km", type="number", placeholder="")
-            ], style={'width': '33%', 'display': 'inline-block'}
-        ),
-        html.Div(
-            children = [
+            dcc.Slider(
+                id='input_km',
+                min=10000,
+                max=300000,
+                step=10000,
+                value=50000,
+                marks={
+                    10000: '10.000',
+                    50000: '50.000',
+                    100000: '100.000',
+                    150000: '150.000',
+                    200000: '200.000',
+                    250000: '250.000',
+                    300000: '300.000',
+                },
+            ),
+        ], style={'width': '33%', 'display': 'inline-block', 'padding':'0px 40px'}),
+        html.Div( children = [
             html.H3 (' Power (CV): '),
-            dcc.Input(id="input_power", type="number", placeholder="")
-            ], style={'width': '33%', 'display': 'inline-block'}
-        ),
-        html.Div(
-            children = [
+            dcc.Slider(
+                id='input_power',
+                min=100,
+                max=400,
+                step=20,
+                value=180,
+                marks={i*20+100: '{}'.format(str(i*20+100)) for i in range( int((400-100)/20)+1 )},
+            ),
+        ], style={'width': '33%', 'display': 'inline-block', 'padding':'0px 40px'}),
+        html.Div( children = [
             html.H3 (' Antiquity (years): '),
-            dcc.Input(id="input_antiquity", type="number", placeholder="")
-            ], style={'width': '33%', 'display': 'inline-block'}
-        )
-        ]
-    ),
+            dcc.Slider(
+                id='input_antiquity',
+                min=1,
+                max=10,
+                step=1,
+                value=2,
+                marks={i: '{}'.format(i) for i in range( 11 )},
+            ),
+        ], style={'width': '33%', 'display': 'inline-block', 'padding':'0px 40px'}),
+    ]),
 
     html.H2('Extras:'),
     html.Div(
@@ -430,58 +376,58 @@ app.layout = html.Div([
         labelStyle={'display': 'inline-block', 'padding':'10px'}
         ),
     ),
-    html.Div( id = 'seleccion')
 
 ])
 
 @app.callback(
-    Output('seleccion', 'children'),
+    Output('solution', 'children'),
     Input('estimate_price', 'n_clicks'),
     State('model_dropdown', 'value'),
     State('fuel_dropdown', 'value'),
     State('typecar_dropdown', 'value'),
-    State('color_dropdown', 'value'),
-    State('input_km', 'number'),
-    State('input_power', 'number'),
-    State('input_antiquity', 'number'),
+    #State('color_dropdown', 'value'),
+    State('input_km', 'value'),
+    State('input_power', 'value'),
+    State('input_antiquity', 'value'),
     State('checklist1', 'value'),
     State('checklist2', 'value'),
 )
-def set_display_children(click, model, fuel, typecar, color, km, power, antiquity, extras1, extras2):
-    #print(click)
+def set_display_children(click, model, fuel, typecar, km, power, antiquity, extras1, extras2):
     x_test = np.array([ 0 for i in range(len( model_features ))], dtype='float64')
     
     # Model
-    index = model_features.index(model)
-    x_test[index] = 1
+    index = model_features.index('modelo_ordinal')
+    x_test[index] = model
 
     # Fuel
-    index = model_features.index(fuel)
-    x_test[index] = 1
+    #index = model_features.index(fuel)
+    #x_test[index] = 1
 
     # Typecar
     index = model_features.index(typecar)
     x_test[index] = 1
 
     # Color
-    index = model_features.index(color)
-    x_test[index] = 1
+    #index = model_features.index(color)
+    #x_test[index] = 1
 
     # km
     km_scaler = pickle.load(open('km_scaler.pkl','rb'))
 
     if km is None:
+        km = 50000
         km_scaled = 0.5
     else:
         km_scaled = km_scaler.transform( np.array(km).reshape(1, -1) )
         
-    index = model_features.index('scaled_km')
-    x_test[index] = km_scaled
+    #index = model_features.index('scaled_km')
+    #x_test[index] = km_scaled
+
+    index = model_features.index('km')
+    x_test[index] = int(km)
 
     # Power
     power_scaler = pickle.load(open('power_scaler.pkl','rb'))
-    if power is None:
-        power = 100
 
     power_scaled = power_scaler.transform( np.array(power).reshape(1, -1) )
     index = model_features.index('scaled_power')
@@ -506,18 +452,15 @@ def set_display_children(click, model, fuel, typecar, color, km, power, antiquit
             index = model_features.index(extra)
             x_test[index] = 1
 
-    print(x_test)
+    #print(x_test)
 
-    print(model)
-    
     filename = 'bmw_price_prediction_model.sav'
     model = pickle.load(open(filename, 'rb'))
     result = model.predict(x_test.reshape(1, -1))
 
-    print(result[0])
+    #print(result[0])
 
-    return 'Estimated Price: {}'.format( str(np.round(result[0])) ) 
-
+    return html.H2( 'The estimated price is: {} €'.format( str(np.round(result[0]))  ))
 
 
 if __name__ == '__main__':
