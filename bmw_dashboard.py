@@ -10,14 +10,10 @@ import pandas as pd
 import os
 import pickle
 
-# Visualizacion
-import matplotlib.pyplot as plt 
-import seaborn as sns
-
-
 from dash.dependencies import Input, Output, State
 
 app = dash.Dash(__name__)
+server = app.server
 
 html_string = '''
 <!DOCTYPE html>

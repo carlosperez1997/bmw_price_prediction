@@ -1,1 +1,1 @@
-web: gunicorn bmw_dashboard: server
+web: gunicorn bmw_dashboard:server
