@@ -44,7 +44,7 @@ html_string = '''
 
         body {
             font-family: 'Roboto', sans-serif;
-            line-height: 1.3;  
+            line-height: 1.2;  
             height: 100%;
         }
 
@@ -73,14 +73,14 @@ html_string = '''
             color: #fff;
             justify-content: space-between;
             z-index: 1;
-            padding: 1rem;
+            padding: 0.8rem;
         }
 
         /* Footer */
         footer {
             background: #333;
             bottom:0;
-            margin-top: 40px;
+            margin-top: 10px;
             color: #fff;
             justify-content: space-between;
         }
@@ -101,11 +101,11 @@ html_string = '''
             <p> This website predicts the selling price of a second hand BMW given features 
                 like the model, power, mileage, colour, type of car, type of fuel or even if 
                 it has extras (gps, blueetooth, rear camera, air conditioning...) </p>
-            <p> The model implemented is a Random Forest Regressor with: n_estimators: 80, max_depth: 50 and min_samples_leaf: 5. You can see the model selection in a notebook in GitHub: <a href="https://github.com/carlosperez1997/bmw_price_prediction/blob/main/price_prediction.ipynb" target="_blank"> Building the Model</a></p>
+            <p> The model implemented is a Gradient Boosting Regressor with: n_estimators: 120, max_depth: 10 and min_samples_leaf: 90. Two more complementary models with the same characteristics are built in order to obtain the confidence interval of the prediction (25 and 75 quartile).  You can see the model construction in a notebook in GitHub: <a href="https://github.com/carlosperez1997/bmw_price_prediction/blob/main/price_prediction.ipynb" target="_blank"> Building the Model</a></p>
 
             <p> The code of this dashboard is in: <a href="https://github.com/carlosperez1997/bmw_price_prediction/blob/main/bmw_dashboard.py" target="_blank"> Building the Dashboard </a>  </p>
         
-            <p> Select the car and features and click 'Estimate price': </p>
+            <p> Select the car and its features and click 'Estimate price': </p>
         </div>
 
         {%app_entry%}
@@ -237,28 +237,27 @@ extras_options = [{'label': 'volante_regulable', 'value': 'volante_regulable'},
  {'label': 'gps', 'value': 'gps'},
  {'label': 'alerta_lim_velocidad', 'value': 'alerta_lim_velocidad'}]
 
-model_features = ['tipo_coche_coupe',
- 'modelo_M',
- 'camara_trasera',
- 'year',
- 'gps',
- 'tipo_coche_van',
- 'aire_acondicionado',
- 'scaled_power',
- 'tipo_coche_estate',
- 'elevalunas_electrico',
- 'tipo_coche_convertible',
+model_features = ['antiquity',
  'asientos_traseros_plegables',
- 'bluetooth',
+ 'tipo_coche_hatchback',
+ 'tipo_coche_estate',
+ 'volante_regulable',
+ 'elevalunas_electrico',
  'tipo_coche_suv',
- 'km',
+ 'bluetooth',
+ 'aire_acondicionado',
  'modelo_ordinal',
  'alerta_lim_velocidad',
- 'tipo_coche_sedan',
- 'antiquity',
- 'volante_regulable',
+ 'km_log',
+ 'tipo_coche_coupe',
+ 'gps',
  'tipo_coche_subcompact',
- 'tipo_coche_hatchback']
+ 'camara_trasera',
+ 'tipo_coche_van',
+ 'modelo_M',
+ 'scaled_power',
+ 'tipo_coche_convertible',
+ 'tipo_coche_sedan']
 
 app.index_string = html_string
 
@@ -266,6 +265,12 @@ app.layout = html.Div([
     html.Button('Estimate Price', id='estimate_price', n_clicks=0),
     html.Div(
         id = 'solution'
+    ),
+    html.Div(
+        html.P('Confidence Interval:'), style={'margin-top':'15px'},
+    ),
+    html.Div(
+        id = 'confidence_interval'
     ),
 
     html.Div( id='dropdowns', style={'width': '100%','margin':'10px'},
@@ -334,7 +339,7 @@ app.layout = html.Div([
             ),
         ], style={'width': '33%', 'display': 'inline-block', 'padding':'0px 40px'}),
         html.Div( children = [
-            html.H3 (' Power (CV): '),
+            html.H3 (' Power (hp): '),
             dcc.Slider(
                 id='input_power',
                 min=100,
@@ -377,6 +382,7 @@ app.layout = html.Div([
 
 @app.callback(
     Output('solution', 'children'),
+    Output('confidence_interval', 'children'),
     Input('estimate_price', 'n_clicks'),
     State('model_dropdown', 'value'),
     State('fuel_dropdown', 'value'),
@@ -408,19 +414,19 @@ def set_display_children(click, model, fuel, typecar, km, power, antiquity, extr
     #x_test[index] = 1
 
     # km
-    km_scaler = pickle.load(open('km_scaler.pkl','rb'))
+    #km_scaler = pickle.load(open('km_scaler.pkl','rb'))
 
     if km is None:
         km = 50000
-        km_scaled = 0.5
+        km_log = np.log(km)
     else:
-        km_scaled = km_scaler.transform( np.array(km).reshape(1, -1) )
+        km_log = np.log(km)
         
     #index = model_features.index('scaled_km')
     #x_test[index] = km_scaled
 
-    index = model_features.index('km')
-    x_test[index] = int(km)
+    index = model_features.index('km_log')
+    x_test[index] = km_log
 
     # Power
     power_scaler = pickle.load(open('power_scaler.pkl','rb'))
@@ -450,13 +456,21 @@ def set_display_children(click, model, fuel, typecar, km, power, antiquity, extr
 
     #print(x_test)
 
-    filename = 'bmw_price_prediction_model.sav'
-    model = pickle.load(open(filename, 'rb'))
-    result = model.predict(x_test.reshape(1, -1))
+    filename = 'bmw_price_prediction_mid_model.sav'
+    mid_model = pickle.load(open(filename, 'rb'))
+    result = mid_model.predict(x_test.reshape(1, -1))
+
+    filename = 'bmw_price_prediction_lower_model.sav'
+    lower_model = pickle.load(open(filename, 'rb'))
+    lower = lower_model.predict(x_test.reshape(1, -1))
+
+    filename = 'bmw_price_prediction_upper_model.sav'
+    upper_model = pickle.load(open(filename, 'rb'))
+    upper = upper_model.predict(x_test.reshape(1, -1))
 
     #print(result[0])
 
-    return html.H2( 'The estimated price is: {} €'.format( str(np.round(result[0]))  ))
+    return html.H2( 'The estimated price is: {} €'.format( str(np.round(result[0]/100)*100)  )), html.H4( 'Lower (25 quartile) and Upper (75 quartile) bounds: {} - {} € '.format( str(np.round(lower[0]/100)*100), str(np.round(upper[0]/100)*100) ))
 
 
 if __name__ == '__main__':
