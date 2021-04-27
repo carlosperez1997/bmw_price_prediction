@@ -237,27 +237,27 @@ extras_options = [{'label': 'volante_regulable', 'value': 'volante_regulable'},
  {'label': 'gps', 'value': 'gps'},
  {'label': 'alerta_lim_velocidad', 'value': 'alerta_lim_velocidad'}]
 
-model_features = ['antiquity',
- 'asientos_traseros_plegables',
- 'tipo_coche_hatchback',
- 'tipo_coche_estate',
- 'volante_regulable',
- 'elevalunas_electrico',
- 'tipo_coche_suv',
- 'bluetooth',
- 'aire_acondicionado',
- 'modelo_ordinal',
+model_features = ['gps',
+ 'modelo_M',
  'alerta_lim_velocidad',
- 'km_log',
+ 'antiquity',
+ 'tipo_coche_hatchback',
  'tipo_coche_coupe',
- 'gps',
- 'tipo_coche_subcompact',
  'camara_trasera',
  'tipo_coche_van',
- 'modelo_M',
- 'scaled_power',
  'tipo_coche_convertible',
- 'tipo_coche_sedan']
+ 'elevalunas_electrico',
+ 'tipo_coche_subcompact',
+ 'tipo_coche_estate',
+ 'tipo_coche_sedan',
+ 'aire_acondicionado',
+ 'modelo_ordinal',
+ 'potencia',
+ 'km_log',
+ 'tipo_coche_suv',
+ 'volante_regulable',
+ 'bluetooth',
+ 'asientos_traseros_plegables']
 
 app.index_string = html_string
 
@@ -429,11 +429,12 @@ def set_display_children(click, model, fuel, typecar, km, power, antiquity, extr
     x_test[index] = km_log
 
     # Power
-    power_scaler = pickle.load(open('power_scaler.pkl','rb'))
+    #power_scaler = pickle.load(open('power_scaler.pkl','rb'))
 
-    power_scaled = power_scaler.transform( np.array(power).reshape(1, -1) )
-    index = model_features.index('scaled_power')
-    x_test[index] = power_scaled
+    #power_scaled = power_scaler.transform( np.array(power).reshape(1, -1) )
+    index = model_features.index('power')
+    x_test[index] = power
+    #x_test[index] = power_scaled
 
     # Antiquity
     if antiquity is None:
